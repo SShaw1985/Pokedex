@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pokedex.Views.MainPage"
+             x:Name="firstPage">
+    <ContentPage.Content>
+        <RelativeLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="15,15,0,15" >
+            <Image Source="pokeball.png" Opacity="0.3" VerticalOptions="Start" HorizontalOptions="End" WidthRequest="250" HeightRequest="250"
+              RelativeLayout.WidthConstraint=
+                "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+              RelativeLayout.HeightConstraint=
+                "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
+            
+            <StackLayout Padding="15,15,0,0"
+                RelativeLayout.WidthConstraint=
+            "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+          RelativeLayout.HeightConstraint=
+            "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+
+                <Label Style="{StaticResource CardTextHeading}" Text="POKEDEX"/>
+                <Picker ItemsSource="{Binding PokemonTypes}" SelectedItem="{Binding SelectedFilter}" ItemDisplayBinding="{Binding name}" ></Picker>
+                <ScrollView Padding="0" VerticalOptions="FillAndExpand">
+
+                        <FlexLayout
+                    BindableLayout.ItemsSource="{Binding PokemonList}"
+                    Wrap="Wrap"
+                    Direction="Row"
+                    JustifyContent="SpaceEvenly"
+                    AlignItems="Start"
+                    AlignContent="Start" 
+                            VerticalOptions="FillAndExpand"
+                            Margin="-15,0,0,0"
+                    Padding="0,15,0,0"
+                    >
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Padding="10" HorizontalOptions="FillAndExpand">
+
+                                        <Frame BorderColor="Black" BackgroundColor="White" CornerRadius="10" Padding="0" >
+
+                                            <Grid BackgroundColor="red">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+
+                                                <Image Source="pokeball.png" HorizontalOptions="EndAndExpand" Grid.Column="1" VerticalOptions="Start" WidthRequest="100"  HeightRequest="100" Aspect="Fill"/>
+                                                <Image Source="{Binding image}" HorizontalOptions="FillAndExpand" VerticalOptions="End" WidthRequest="150" Grid.Column="1" HeightRequest="150" />
+                                                <Label Text="{Binding name}" Style="{StaticResource CardText}"  TextColor="#CACACA" HorizontalOptions="Center" VerticalOptions="End" Grid.Column="1"/>
+
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.GoToItemCommand, Source={x:Reference firstPage}}" CommandParameter="{Binding url}"/>
+                                                </Grid.GestureRecognizers>
+
+                                            </Grid>
+
+
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+
+                </ScrollView>
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="End" Padding="-15,0,0,0" Spacing="1">
+                    <Button Text="Previous" Background="red" CornerRadius="0" TextColor="#CACACA" HorizontalOptions="FillAndExpand"  Command="{Binding PaginateCommand}" CommandParameter="true" IsEnabled="{Binding ShowPreviousButton}" ></Button>
+                    <Button Text="Next" Background="red" CornerRadius="0" TextColor="#CACACA" HorizontalOptions="FillAndExpand"  Command="{Binding PaginateCommand}" CommandParameter="true" IsEnabled="{Binding ShowNextButton}" ></Button>
+                </StackLayout>
+            </StackLayout>
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>
