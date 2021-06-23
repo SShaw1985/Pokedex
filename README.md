@@ -34,4 +34,7 @@ There is a favourite button which will add a pokemon to a favourite list which c
 All data is cached from the api at the point it is requested.
 if the data is present in the cache no api calls are made
 
+# Splash screen
+A splash screen has been added on Android only as this is the only platform available for development at the time of implementation
+
 
